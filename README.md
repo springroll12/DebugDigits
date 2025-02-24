@@ -6,6 +6,7 @@ Using [Aider](https://github.com/Aider-AI/aider) and [Anthropic's Claude](https:
 
 ### Notes
 - Should stick with Python3 to keep everyones work compatible (Claude seemed to favor Python3 for CLI code generation)
+- aider --model sonnet --api-key anthropic={API_KEY}
 
 ### Credentials
 I've setup an Anthropic account. I can share the credentials with the team so we don't all need to sign up for individual accounts.
