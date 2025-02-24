@@ -13,6 +13,6 @@ Using [Aider](https://github.com/Aider-AI/aider) and [Anthropic's Claude](https:
 I've setup an Anthropic account. I can share the credentials with the team so we don't all need to sign up for individual accounts.
 
 ### Folders
-aider_sandboxes : Aider seems to only read from within the folder you execute it. To avoid stepping on toes during dev, you can create a folder here to run your tests while still using source control.
-project : main project to integrate with github PR and execute review plugins
-plugins : various review plugins
+- aider_sandboxes : Aider seems to only read from within the folder you execute it. To avoid stepping on toes during dev, you can create a folder here to run your tests while still using source control.
+- project : main project to integrate with github PR and execute review plugins
+- plugins : various review plugins
