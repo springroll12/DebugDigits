@@ -1,0 +1,60 @@
+name: CI Checks on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          # Add any other dependencies your project needs
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run CI Plugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python github_ci_plugin.py \
+            --token "$GITHUB_TOKEN" \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --test-command "python -m unittest discover"
+  
+  code-style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests flake8 black isort ruff
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run Code Style Checker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python code_style_checker.py \
+            --token "$GITHUB_TOKEN" \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}"
